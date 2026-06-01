@@ -52,10 +52,14 @@ jobs:
       - name: Make plugin_repackaging.sh executable
         run: chmod +x ./plugin_repackaging.sh
 
+      - name: Upgrade pip
+        run: pip install --upgrade pip
+
+      - name: Purge pip cache
+        run: pip cache purge
+
       - name: Run plugin repackaging script
         run: |
-          pip install --upgrade pip \
-          pip cache purge \
           PIP_MIRROR_URL=https://pypi.org/simple \
           ./plugin_repackaging.sh \
           -p ${{ env.PIP_PLATFORM }} \
